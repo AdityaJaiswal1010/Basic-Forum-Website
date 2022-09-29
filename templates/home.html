@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="text/javascript" src="{{ url_for('static',filename='script/script.js') }}"></script>
+  </head>
+  <body>
+    <div class="main">
+      <form>
+        <i class="fas fa-search"></i>
+        <input type="text" id="myInput" placeholder="Search" onkeyup="searchht()">
+      </form>
+      <ol id="list">
+        {% for d in data %}
+        <a href="/thread?connectID={{ d['_id'] }}">
+          <li class="row" >
+            <h4 class="title">{{ d['title'] }}</h4>
+            <div class="bottom">
+              <script>
+                <p class="timestamp">
+                  {new Date(Date.now().toLocaleString())}
+                </p>;
+              </script>
+              <p name="{{ d['pid'] }}">Post ID: {{ d['pid'] }}</p>
+              <p class="comment-count">View comments-></p>
+              <!--p class="comment-count">view {{ count }} comments</p-->
+            </div>
+          </li>
+        </a>
+        {% endfor %}
+      </ol>
+
+      <a href="/create">
+        <input
+          type="submit"
+          className="btn btn-success post-editor-button"
+          class="btn"
+          value="+ Create Thread"
+        />
+      </a>
+    </div>
+    <style>
+      body {
+        margin: 10px 60px;
+      }
+      a {
+        text-decoration: none;
+        color: black;
+      }
+      h1,
+      h4,
+      ol {
+        margin: 0;
+      }
+      p {
+        margin: 5px 0;
+      }
+      .top-bar {
+        background-color: skyblue;
+        padding: 0 40px;
+      }
+      .main {
+        background-color: #f6f6ef;
+        padding: 10px 15px;
+      }
+      .row {
+        padding: 5px 0;
+      }
+      .bottom {
+        display: flex;
+        color: grey;
+        font-size: 12px;
+      }
+      .timestamp {
+        padding-right: 10px;
+      }
+    </style>
+  </body>
+</html>

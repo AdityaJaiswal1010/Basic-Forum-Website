@@ -1,0 +1,111 @@
+<body>
+  <div class="top-bar">
+    <h1>{{ data['title'] }}</h1>
+  </div>
+  <div class="header">
+    <h4 class="title">{{ data['desc'] }}</h4>
+    <div class="bottom">
+      <p class="timestamp">August 8, 2022</p>
+    </div>
+  </div>
+  {% for c in com %}
+  <!--form action='{{ url_for("delete") }}' method="post">
+  <div class="comments">
+    <div class="comment">
+      <a href="/delete?conId={{ c['_id'] }}">
+      <div class="top-comment">
+        <p class="user">{{ c['name'] }}</p>
+        <p class="timestamp">{new Date(Date.now().toLocaleString())}</p>
+      </div>
+      <div class="comment-content">{{ c['comment'] }}</div>
+    </div>
+    <div>
+      <input type="int" name="id2" placeholder=" User ID" />
+        <input type="submit" class="btn" value="Delete" />
+    </div>
+  </a>
+  </div-->
+
+  <a href="/delete?conId={{ c['_id'] }}">
+    <div class="cmment">
+      <p class="top-comment">{{ c['name'] }}</p>
+    </div>
+    <div class="comment-content">{{ c['comment'] }}</div>
+  </a>
+
+  <!--/form-->
+  {% endfor %}
+  <form action='{{ url_for("thread") }}' method="post">
+    <textarea
+      type="text"
+      name="comments"
+      placeholder="Add Comment"
+      requried
+    ></textarea>
+    <input type="int" name="id1" placeholder="User ID" required /><br /><br />
+    <input
+      type="int"
+      name="user"
+      placeholder="User Name"
+      required
+    /><br /><br />
+    <a href="/thread">
+      <input type="submit" class="btn" value="comment" />
+    </a>
+  </form>
+  <style>
+    body {
+      margin: 10px 60px;
+    }
+    a {
+      text-decoration: none;
+      color: black;
+    }
+    h1,
+    h4,
+    ol {
+      margin: 0;
+    }
+    p {
+      margin: 5px 0;
+    }
+    textarea {
+      width: 80%;
+      height: 80px;
+    }
+    button {
+      display: block;
+      margin: 10px 0;
+    }
+    .top-bar {
+      background-color: skyblue;
+      padding: 0 40px;
+    }
+    .main {
+      background-color: #f6f6ef;
+      padding: 10px 40px;
+    }
+    .comments {
+      margin: 40px 0;
+    }
+    .comment {
+      margin: 10px 0;
+    }
+    .row {
+      padding: 5px 0;
+    }
+    .bottom,
+    .top-comment {
+      display: flex;
+      color: grey;
+      font-size: 12px;
+    }
+    .timestamp {
+      padding-right: 10px;
+    }
+    .comment-ts {
+      padding-left: 10px;
+    }
+  </style>
+  <!--/body-->
+</body>

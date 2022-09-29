@@ -1,0 +1,50 @@
+<body>
+  <div class="top-bar">
+    <h1>SAKEC Forum</h1>
+  </div>
+  <form action='{{ url_for("create") }}' method="post">
+    <div>
+      <div>
+        <textarea
+          type="text"
+          name="title1"
+          placeholder="Enter a precise question please!"
+          required
+        ></textarea>
+        <textarea
+          type="text"
+          name="post"
+          placeholder="You can elaborate your question here."
+          required
+        ></textarea>
+        <input type="int" name="postid" placeholder="Enter Post ID" required />
+        <input type="int" name="uid" placeholder="Enter User ID" required />
+      </div>
+    </div>
+    <a href="/create">
+      <input type="submit" class="btn" value="comment" />
+    </a>
+  </form>
+
+  <style>
+    .post-editor {
+      margin: 1em 20%;
+    }
+
+    .post-editor-button {
+      float: right;
+      margin-top: 1em;
+    }
+
+    @media (max-width: 900px) {
+      .post-editor {
+        margin: 1em;
+      }
+
+      .post-body {
+        margin: 1em;
+      }
+    }
+  </style>
+  <!--/body-->
+</body>
