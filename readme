@@ -1,0 +1,2 @@
+Basic forum website for sakec students, where they can ask questions related to any topic and get guidance from experienced seniors.
+Technologies used: Flask, MongoDB, SMTP Library.
