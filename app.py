@@ -1,4 +1,3 @@
-# from crypt import methods
 from enum import Flag
 import json
 from sys import flags
@@ -9,13 +8,11 @@ from bson.objectid import ObjectId
 import smtplib
 import math, random
 import pymongo
-# import localStorage
+
 app = Flask(__name__)
 
-# client = pymongo.MongoClient(
-#     "mongodb+srv://VP:psi2002@forum.fo2zbdg.mongodb.net/?retryWrites=true&w=majority")
 client = pymongo.MongoClient(
-    "mongodb+srv://VP:psi2002@forum.fo2zbdg.mongodb.net/test")
+    "connect with atlas here")
 
 db= client.get_database('forum')
 data=db['posts']
@@ -27,12 +24,7 @@ umail = ''
 uname = ''
 upass = ''
 otp = ''
-# flag='0'
-"""
-CREATE TABLE threads(post VARCHAR(500), title VARCHAR(50), id INT, userName VARCHAR(50), userEmail varchar(50), comments varchar(500), postID int);
-"""
 
-# comments = {}
 
 def generateOTP() :
  
@@ -45,8 +37,6 @@ def generateOTP() :
         OTP += string[math.floor(random.random() * length)]
  
     return OTP
-
-# def sendMail():
     
 
 def checkuser(mail):
@@ -85,7 +75,6 @@ def sendMail():
     print(otp)
     message = f"{otp}"
     server.sendmail("aditya.jaiswal15974@sakec.ac.in", umail, message)
-    # otp = ''
     server.quit()
     return redirect(url_for("verify"))
 
@@ -96,11 +85,6 @@ def verify():
         totp =  request.form.get("otp")
         print(totp)
         if(otp == totp):
-            # print(otp)
-            # print(request.form.get("otp"))
-            # print(uname)
-            # print(umail)
-            # print(upass)
             users.insert_one({
                 'name': uname,
                 'email': umail,
@@ -117,12 +101,10 @@ def signup():
     global umail
     global uname
     global upass
-    # global flag
+
     email= request.form.get('umail')
     pass1 = request.form.get('upass')
     pass2 = request.form.get('upass1')
-    # flag=localStorage.key('flag');
-    # print(flag)
     print(f"email:{email}")
     print(pass1)
     if request.method=='POST':
@@ -131,13 +113,6 @@ def signup():
                 uname = request.form.get('uname')
                 umail = email
                 upass = pass1
-                # users.insert_one({
-                #     'name': request.form.get('uname'),
-                #     'email': email,
-                #     'password': pass1,
-                # })
-                # dt = data.find()
-                # return render_template('home.html', data=dt) #previously working
                 return redirect(url_for("sendMail"))
             else:
                 wrongpass = 'The password do not match! Please enter again!'
@@ -175,13 +150,6 @@ def thread():
     if request.method == 'POST':
         # adding a comment
         cuid = int(request.form.get('id1'))
-        # comments[cuid] = request.form.get('comments')
-        # data.update_one({'Postid': currPID},
-        # {"$set":{
-        #     # 'cid' : int(request.form.get('id1')),
-        #     # 'userName' : request.form.get('user'),
-        #     'comments' : comments,
-        # }})
         comments.insert_one({
             'pid' : currPID,
             'cid' : cuid,
@@ -195,7 +163,6 @@ def thread():
         return render_template('thread.html',com=comms, data =  dt)
         
     currPID = request.args.get('connectID')
-    # print(currPID)
     dt = data.find_one({'_id': ObjectId(currPID)})
     print(dt)
     comms = comments.find({'pid' : currPID})
@@ -213,10 +180,6 @@ def delete():
     dt =  data.find_one({'postid': ObjectId(currPID)})
     print(currPID)
     return render_template('thread.html',com = comms, data=dt)
-
-    # comms = comments.find({'pid' : currPID})
-    # dt =  data.find_one({'postid': currPID})
-    # return render_template('thread.html',com = comms, data=data)
 
 if __name__=="__main__":
     app.run(debug = True)
